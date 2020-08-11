@@ -16,7 +16,7 @@ class ProductsGrids extends StatelessWidget {
         padding:
             const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 90),
         itemCount: products.length,
-        itemBuilder: (ctx, index) => ChangeNotifierProvider.value(
+        itemBuilder: (ctx, index) => ChangeNotifierProvider<Product>.value(
           value: products[index],
           child: ShopProductItemLayout(),
         ),
