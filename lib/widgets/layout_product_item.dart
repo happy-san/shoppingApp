@@ -6,7 +6,7 @@ import '../providers/products.dart';
 import '../providers/cart.dart';
 import '../providers/auth.dart';
 
-class ShopProductItemLayout extends StatelessWidget {
+class ProductItemLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
@@ -28,22 +28,24 @@ class ShopProductItemLayout extends StatelessWidget {
           ),
           footer: GridTileBar(
             leading: Consumer<Product>(
-              builder: (context, product, _) => IconButton(
-                icon: Icon(product.isFavorite
-                    ? Icons.favorite
-                    : Icons.favorite_border),
-                color: Theme.of(context).accentColor,
-                onPressed: () {
-                  product.toggleFavouriteStatus(auth.token);
-                },
-              ),
+              builder: (context, product, _) => auth.token == null
+                  ? null
+                  : IconButton(
+                      icon: Icon(product.isFavorite
+                          ? Icons.favorite
+                          : Icons.favorite_border),
+                      color: Theme.of(context).accentColor,
+                      onPressed: () {
+                        product.toggleFavouriteStatus(auth.token, auth.userId);
+                      },
+                    ),
             ),
             title: Text(
               product.title,
               textAlign: TextAlign.center,
             ),
             trailing: IconButton(
-              icon: const Icon(Icons.shopping_cart),
+              icon: const Icon(Icons.add_shopping_cart),
               color: Theme.of(context).accentColor,
               onPressed: () {
                 cart.addItem(product.id, product.price, product.title);
@@ -53,7 +55,7 @@ class ShopProductItemLayout extends StatelessWidget {
                     content: Text(
                       'Added item to cart!',
                     ),
-                    duration: Duration(seconds: 2),
+                    duration: Duration(milliseconds: 800),
                     action: SnackBarAction(
                       label: 'UNDO',
                       onPressed: () {

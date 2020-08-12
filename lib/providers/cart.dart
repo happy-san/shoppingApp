@@ -6,12 +6,13 @@ class CartItemData {
   int quantity;
   final double price;
 
-  CartItemData({
-    @required this.id,
-    @required this.title,
-    @required this.quantity,
-    @required this.price,
-  });
+  CartItemData(
+      {@required this.id,
+      @required this.title,
+      @required this.price,
+      @required this.quantity});
+
+  get toPay => price * quantity;
 }
 
 class Cart with ChangeNotifier {
@@ -21,7 +22,7 @@ class Cart with ChangeNotifier {
     return {..._items};
   }
 
-  int get itemCount => _items.length;
+  get itemCount => _items.length;
 
   double get totalAmount {
     var total = 0.0;
@@ -79,6 +80,7 @@ class Cart with ChangeNotifier {
               title: existingCartItem.title,
               price: existingCartItem.price,
               quantity: ++existingCartItem.quantity));
+    notifyListeners();
   }
 
   void clear() {

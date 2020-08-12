@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/products.dart';
-import 'layout_shop_product_item.dart';
+import 'layout_product_item.dart';
 
 class ProductsGrids extends StatelessWidget {
   final bool showFavorites;
@@ -14,11 +14,11 @@ class ProductsGrids extends StatelessWidget {
     return OrientationBuilder(
       builder: (context, orientation) => GridView.builder(
         padding:
-            const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 90),
+            const EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 110),
         itemCount: products.length,
         itemBuilder: (ctx, index) => ChangeNotifierProvider<Product>.value(
           value: products[index],
-          child: ShopProductItemLayout(),
+          child: ProductItemLayout(),
         ),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: orientation == Orientation.portrait ? 1 : 2,

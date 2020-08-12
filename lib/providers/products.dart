@@ -20,26 +20,19 @@ class Product with ChangeNotifier {
       @required this.imageUrl,
       this.isFavorite = false});
 
-  Future<void> toggleFavouriteStatus(String authToken) async {
+  Future<void> toggleFavouriteStatus(String authToken, String userId) async {
     final url =
-        'https://myshop-ea824.firebaseio.com/products/$id.json?auth=$authToken';
+        'https://myshop-ea824.firebaseio.com/userFavorites/$userId/$id.json?auth=$authToken';
     isFavorite = !isFavorite;
     notifyListeners();
-
     try {
-      final response = await http.patch(url,
-          body: json.encode({
-            'favorite': isFavorite,
-            'description': description,
-            'imageUrl': imageUrl,
-            'price': price,
-            'title': title,
-          }));
+      final response = await http.put(url, body: json.encode(isFavorite));
       if (response.statusCode >= 400) {
         throw ('error');
       }
     } catch (error) {
       isFavorite = !isFavorite;
+      print(error);
       notifyListeners();
     }
   }
@@ -48,22 +41,28 @@ class Product with ChangeNotifier {
 class Products with ChangeNotifier {
   List<Product> _items = [];
   String _authToken;
+  String _userId;
 
   get items => [..._items];
   get favoriteItems => _items.where((item) => item.isFavorite).toList();
 
   setAuthToken(authToken) => _authToken = authToken;
+  setUserId(userId) => _userId = userId;
 
   Product findById(String id) {
     return _items.firstWhere((item) => item.id == id);
   }
 
-  Future<void> fetchAndSetProducts() async {
-    if (_authToken == null) throw ('authTokenNull');
-    final url =
-        'https://myshop-ea824.firebaseio.com/products.json?auth=$_authToken';
+  Future<void> fetchAndSetProducts([bool filterByUser = false]) async {
+    final filterString =
+        filterByUser ? 'orderBy="creatorId"&equalTo="$_userId"' : '';
+    var url = 'https://myshop-ea824.firebaseio.com/products.json?$filterString';
     try {
       final response = await http.get(url);
+      url = 'https://myshop-ea824.firebaseio.com/userFavorites/$_userId.json?';
+      final userFavoritesResponse = await http.get(url);
+      final userFavorites = json.decode(userFavoritesResponse.body);
+
       List<Product> fetchedProducts = [];
       (json.decode(response.body) as Map<String, dynamic>)
           ?.forEach((productId, productData) {
@@ -73,13 +72,26 @@ class Products with ChangeNotifier {
           imageUrl: productData['imageUrl'],
           price: productData['price'],
           title: productData['title'],
-          isFavorite: productData['favorite'],
+          isFavorite:
+              userFavorites == null ? false : userFavorites[productId] ?? false,
         ));
       });
       _items = fetchedProducts;
     } catch (error) {
       throw (error);
     }
+
+    // try {
+    //   for (Product p in _items) {
+    //     url =
+    //         'https://myshop-ea824.firebaseio.com/userFavorites/$_userId/${p.id}.json?auth=$_authToken';
+    //     final response = await http.get(url);
+    //     if (response?.body == 'true') p.isFavorite = true;
+    //   }
+    // } catch (error) {
+    //   throw (error);
+    // }
+
     notifyListeners();
   }
 
@@ -95,6 +107,7 @@ class Products with ChangeNotifier {
           'imageUrl': product.imageUrl,
           'price': product.price,
           'favorite': product.isFavorite,
+          'creatorId': _userId,
         }),
       );
       final newProduct = Product(
