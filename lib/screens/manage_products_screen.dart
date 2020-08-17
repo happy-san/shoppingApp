@@ -5,9 +5,9 @@ import 'package:provider/provider.dart';
 import '../providers/products.dart';
 import '../widgets/layout_manage_product_item.dart';
 import '../widgets/app_drawer.dart';
-import './edit_product_screen.dart';
+import 'edit_product_screen.dart';
 
-class UserProductScreen extends StatelessWidget {
+class ManageProductScreen extends StatelessWidget {
   static const routeName = '/user-products';
 
   Future<void> _refreshProducts(BuildContext context) async {

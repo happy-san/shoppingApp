@@ -15,6 +15,7 @@ class ManageProductItemLayout extends StatelessWidget {
       title: Text(title),
       leading: CircleAvatar(
         backgroundImage: NetworkImage(imageUrl),
+        backgroundColor: Colors.white,
       ),
       trailing: Container(
         width: 96,
