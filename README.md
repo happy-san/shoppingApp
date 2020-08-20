@@ -1,16 +1,43 @@
 # shoppingApp
 
-A new Flutter project.
+A generic shopping app to learn fundamentals of flutter.
 
-## Getting Started
+## Flutter topics covered:
 
-This project is a starting point for a Flutter application.
+<details>
+<summary>Widgets, Styling, Adding Logic</summary>
 
-A few resources to get you started if this is your first Flutter project:
+- [x] Container
+- [x] Text
+- [x] Column & Row
+- [x] Styling Container, Text
+- [x] RaisedButton, IconButton, FlatButton, Custom Button
+- [x] Switch
+- [x] Installing and using external packages
+- [x] DateFormat
+- [x] TextInput
+- [x] ListView
+- [x] Card
+- [x] SingleChildScrollView
+- [x] AppBar
+- [x] FloatingActionBar
+- [x] showModalBottomSheet()
+- [x] Theme
+- [x] Image
+- [x] Stack
+- [x] AppBar
+- [x] showDatePicker()
+</details>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<details>
+<summary>Responsive & Adaptive User Interfaces</summary>
+  
+- [x] MediaQuery
+- [x] LayoutBuilder
+- [x] Expanded
+- [x] Flex
+- [x] FittedBox
+- [x] WidgetsFlutteBinding
+- [x] SystemChrome
+- [x] Platform
+</details>
