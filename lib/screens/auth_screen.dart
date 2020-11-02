@@ -110,7 +110,6 @@ class _AuthCardState extends State<AuthCard>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller = AnimationController(
       vsync: this,
@@ -120,7 +119,7 @@ class _AuthCardState extends State<AuthCard>
     _opacityAnimation = Tween<double>(begin: 0.0, end: 1.0)
         .animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
     _slideAnimation =
-        Tween<Offset>(begin: Offset(0, -1), end: Offset(0, 0)).animate(
+        Tween<Offset>(begin: Offset(0, -0.1), end: Offset(0, 0)).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Curves.easeIn,
@@ -189,7 +188,7 @@ class _AuthCardState extends State<AuthCard>
       }
       _showErrorDialog(errorMessage);
     } catch (error) {
-      const errorMessage =
+      final errorMessage =
           'Could not authenticate you. Please try again later.';
       _showErrorDialog(errorMessage);
     }
@@ -266,7 +265,6 @@ class _AuthCardState extends State<AuthCard>
                     _authData['password'] = value;
                   },
                 ),
-                // if (_authMode == AuthMode.Signup)
                 AnimatedContainer(
                   constraints: BoxConstraints(
                     minHeight: _authMode == AuthMode.Signup ? 60 : 0,
@@ -316,7 +314,10 @@ class _AuthCardState extends State<AuthCard>
                 FlatButton(
                   child: Text(
                       '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
-                  onPressed: _switchAuthMode,
+                  onPressed: () {
+                    _switchAuthMode();
+                    _formKey.currentState.reset();
+                  },
                   padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   textColor: Theme.of(context).primaryColor,
