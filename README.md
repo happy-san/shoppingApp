@@ -1,43 +1,27 @@
 # shoppingApp
 
-A generic shopping app to learn fundamentals of flutter.
+A simple E-commerece app to learn fundamentals of flutter.
 
-## Flutter topics covered:
+## How to setup
 
-<details>
-<summary>Widgets, Styling, Adding Logic</summary>
+1) #### Create a new [Firebase project](https://console.firebase.google.com/).
+2) #### In the `Authentication` section's `Sign-in method` tab, enable `Email/Password`.
+3) #### Run the app with the following command:
+        flutter run --dart-define=FIREBASE_WEB_API_KEY=<yourkey>
+      and replace `<yourkey>` with the web api key in the `Project settings`.
 
-- [x] Container
-- [x] Text
-- [x] Column & Row
-- [x] Styling Container, Text
-- [x] RaisedButton, IconButton, FlatButton, Custom Button
-- [x] Switch
-- [x] Installing and using external packages
-- [x] DateFormat
-- [x] TextInput
-- [x] ListView
-- [x] Card
-- [x] SingleChildScrollView
-- [x] AppBar
-- [x] FloatingActionBar
-- [x] showModalBottomSheet()
-- [x] Theme
-- [x] Image
-- [x] Stack
-- [x] AppBar
-- [x] showDatePicker()
-</details>
+## Topics covered:
 
-<details>
-<summary>Responsive & Adaptive User Interfaces</summary>
-  
-- [x] MediaQuery
-- [x] LayoutBuilder
-- [x] Expanded
-- [x] Flex
-- [x] FittedBox
-- [x] WidgetsFlutteBinding
-- [x] SystemChrome
-- [x] Platform
-</details>
+* #### Widgets, Styling, Adding Logic
+
+* #### Responsive & Adaptive User Interfaces
+
+* #### Navigation & Multiple Screens
+
+* #### State Management
+
+* #### User Input & Forms
+
+* #### Sending HTTP Requests
+
+* #### User Authentication

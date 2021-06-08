@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/http_exception.dart';
-import '../models/key.dart';
+
+const API_KEY = String.fromEnvironment('FIREBASE_WEB_API_KEY');
 
 class Auth with ChangeNotifier {
   String _token;
@@ -32,7 +33,7 @@ class Auth with ChangeNotifier {
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {
     final url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=${AuthKey().key}';
+        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=$API_KEY';
     try {
       final response = await http.post(url,
           body: json.encode({
