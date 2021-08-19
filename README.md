@@ -26,6 +26,8 @@ A simple E-commerece app to learn fundamentals of flutter.
 
 * #### User Authentication
 
+* #### Firebase Real time Database
+
 ## Gifs
         
 <img src="assets/login.gif" alt="Login GIF" width="250" height="500"> <img src="assets/cart.gif" alt="Cart GIF" width="250" height="500">
